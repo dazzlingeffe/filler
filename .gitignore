@@ -1,6 +1,5 @@
 # Folders
 cmake-build-debug/
-.DS_Store/
 libft/
 .idea/
 
@@ -8,7 +7,7 @@ libft/
 *.o
 
 # Libraries
-#*.a
+*.a
 
 # Executable
 *.out
@@ -20,6 +19,7 @@ CMakeLists.txt
 # Swp files
 *.swp
 *.swo
+.DS_Store
 
 # Precompiled header
 *.h.gch
