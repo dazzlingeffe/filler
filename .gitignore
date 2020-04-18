@@ -23,3 +23,8 @@ CMakeLists.txt
 
 # Precompiled header
 *.h.gch
+
+#Other junk files
+gnl.c
+objects/
+libft/objects
