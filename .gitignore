@@ -1,0 +1,25 @@
+# Folders
+cmake-build-debug/
+.DS_Store/
+libft/
+.idea/
+
+# Object files
+*.o
+
+# Libraries
+#*.a
+
+# Executable
+*.out
+
+# Debug files
+*.dSYM
+CMakeLists.txt
+
+# Swp files
+*.swp
+*.swo
+
+# Precompiled header
+*.h.gch
