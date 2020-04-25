@@ -5,7 +5,7 @@
 #include <stdio.h>
 void print_coordinates(t_board *board)
 {
-
+//	printf("%d %d\n", board->H, board->W);
 	ft_putnbr(board->H);
 	ft_putchar(' ');
 	ft_putnbr(board->W);

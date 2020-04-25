@@ -41,4 +41,8 @@ void 		measure_distance(t_board ***board, int i, int j);
 
 void		print_coordinates(t_board *board);
 
+void		free_board(t_board **board);
+void		free_piece(t_piece **piece);
+void		free_heatmap(t_board **board);
+
 #endif //FILLER_FILLER_H

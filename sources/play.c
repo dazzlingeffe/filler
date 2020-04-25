@@ -13,7 +13,7 @@ void 	play(t_board *board, t_piece *piece)
 
 	h = -(piece->height);
 	markup_heatmap(&board);
-	min_cells = FT_INT_MAX;
+	min_cells = 2147483647;
 	while (h < board->height + piece->height)
 	{
 		w = -(piece->width);
@@ -30,6 +30,7 @@ void 	play(t_board *board, t_piece *piece)
 		}
 		++h;
 	}
+	free_heatmap(&board);
 }
 
 int 	count_cells(t_board *board, t_piece *piece, int x, int y)
@@ -50,7 +51,7 @@ int 	count_cells(t_board *board, t_piece *piece, int x, int y)
 			if (piece->piece[i][j] == '*')
 			{
 				if ((x + i) >= board->height || (x + i) < 0
-				|| (y + j) >= board->height || (y + j) < 0
+				|| (y + j) >= board->width || (y + j) < 0
 				|| ft_tolower(board->board[x + i][y + j]) == board->enemy || ft_tolower(board->board[x + i][y + j]) == board->enemy - 32)
 					return (-1);
 				if (ft_tolower(board->board[x + i][y + j]) == board->symbol)
@@ -68,7 +69,7 @@ void 	markup_heatmap(t_board **board)
 	int j;
 	int min_dist;
 
-	min_dist = FT_INT_MAX;
+	min_dist = 2147483647;
 	if (!((*board)->heat_map = (int**)ft_memalloc(sizeof(int*) * (*board)->height)))
 		print_error(1);
 //	ft_bzero((*board)->heat_map, (*board)->height);
@@ -101,7 +102,7 @@ void 	measure_distance(t_board ***board, int i, int j)
 		y = -1;
 		while (++y < (**board)->width)
 		{
-			if ((**board)->board[x][y] == (**board)->enemy || (**board)->board[x][y] == (char)(**board)->enemy - 32)
+			if ((**board)->board[x][y] == (**board)->enemy || ft_tolower((**board)->board[x][y]) == (**board)->enemy)
 			{
 				distance = ft_abs(y - j) + ft_abs(x - i);
 				if (distance < (**board)->heat_map[i][j])

@@ -21,7 +21,8 @@ LIBDIR		= ./libft
 
 SRCNAME     = filler.c \
               play.c \
-              print.c
+              print.c \
+              free_board.c
 
 SRCS		= $(addprefix $(SRCDIR)/, $(SRCNAME))
 OBJLIST		= $(patsubst %.c, %.o, $(SRCNAME))
