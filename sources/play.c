@@ -102,7 +102,7 @@ void 	measure_distance(t_board ***board, int i, int j)
 		y = -1;
 		while (++y < (**board)->width)
 		{
-			if ((**board)->board[x][y] == (**board)->enemy || ft_tolower((**board)->board[x][y]) == (**board)->enemy)
+			if (ft_tolower((**board)->board[x][y]) == (**board)->enemy)
 			{
 				distance = ft_abs(y - j) + ft_abs(x - i);
 				if (distance < (**board)->heat_map[i][j])
