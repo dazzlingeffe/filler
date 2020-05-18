@@ -2,11 +2,10 @@
 #include "filler.h"
 #include "stdio.h"
 
-void 		print_error(int code)
+void		print_error(int i)
 {
-	ft_putstr("Error\n");
-
-	exit(code);
+	ft_putstr("Error");
+	exit(i);
 }
 
 int			parsing_data(t_board **board, t_piece **piece, char *line)
@@ -17,7 +16,7 @@ int			parsing_data(t_board **board, t_piece **piece, char *line)
 	{
 		set_board_size(board, line);
 		if (!((*board)->board = (char **)ft_memalloc(sizeof(char*) * (*board)->height)))
-			print_error(1);
+			perror("memory allocation failed");
 		(*board)->lvl = 0;
 	}
 	else if (ft_isdigit(line[0]))
@@ -32,7 +31,7 @@ int			parsing_data(t_board **board, t_piece **piece, char *line)
 			++i;
 		(*piece)->width = ft_atoi(line + i + 1);
 		if (!((*piece)->piece = (char **)ft_memalloc(sizeof(char*) * (*piece)->height)))
-			print_error(1);
+			perror("memory allocation failed");
 		(*piece)->lvl = 0;
 	}
 	else if (line[0] == '.' || line[0] == '*') {
@@ -63,19 +62,13 @@ int			main(void) {
 	if (!(board = (t_board *)ft_memalloc(sizeof(t_board))) ||
 	!(piece = (t_piece *)ft_memalloc(sizeof(t_piece))) ||
 	!(line = (char *)ft_memalloc(sizeof(char) * 1)))
-		print_error(1);
+		perror("memory allocation failed");
 	if (get_next_line(0, &line) > 0)
 	{
 		if (!ft_strncmp(line, "$$$", 3))
 		{
-			if (line[10] == '1') {
-				board->symbol = 'o';
-				board->enemy = 'x';
-			}
-			else {
-				board->symbol = 'x';
-				board->enemy = 'o';
-			}
+			board->symbol = line[10] == '1' ? 'o' : 'x';
+			board->enemy = line[10] == '1' ? 'x' : 'o';
 		}
 		else
 			return (1);
