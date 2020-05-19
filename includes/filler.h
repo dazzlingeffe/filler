@@ -6,8 +6,9 @@
 #define FILLER_FILLER_H
 # include "libft.h"
 # include "get_next_line.h"
+# include <stdio.h>
 
-typedef struct s_board
+typedef struct	s_board
 {
 	char 		**board;
 	int 		height;
@@ -28,9 +29,13 @@ typedef struct	s_piece
 	char		**piece;
 }				t_piece;
 
-void		set_board_size(t_board **board, char *line);
+void		init(t_board **board, t_piece **piece);
+void 		set_player(t_board **board, char *line);
 
 int			parsing_data(t_board **board, t_piece **piece, char *line);
+void		set_board(t_board **board, char *line);
+void 		set_piece(t_piece **piece, char *line);
+int			parse_piece(t_piece **piece, char *line);
 
 void 		print_error(int code);
 

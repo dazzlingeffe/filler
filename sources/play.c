@@ -1,7 +1,3 @@
-//
-// Created by ira on 13.04.2020.
-//
-
 #include <filler.h>
 
 void 	play(t_board *board, t_piece *piece)
@@ -52,7 +48,8 @@ int 	count_cells(t_board *board, t_piece *piece, int x, int y)
 			{
 				if ((x + i) >= board->height || (x + i) < 0
 				|| (y + j) >= board->width || (y + j) < 0
-				|| ft_tolower(board->board[x + i][y + j]) == board->enemy || ft_tolower(board->board[x + i][y + j]) == board->enemy - 32)
+				|| ft_tolower(board->board[x + i][y + j]) == board->enemy
+				|| ft_tolower(board->board[x + i][y + j]) == board->enemy - 32)
 					return (-1);
 				if (ft_tolower(board->board[x + i][y + j]) == board->symbol)
 					++counter;
@@ -72,7 +69,6 @@ void 	markup_heatmap(t_board **board)
 	min_dist = 2147483647;
 	if (!((*board)->heat_map = (int**)ft_memalloc(sizeof(int*) * (*board)->height)))
 		print_error(1);
-//	ft_bzero((*board)->heat_map, (*board)->height);
 	i = -1;
 	while (++i < (*board)->height)
 	{

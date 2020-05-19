@@ -20,6 +20,7 @@ OBJDIR		= ./objects
 LIBDIR		= ./libft
 
 SRCNAME     = filler.c \
+			  parsing.c \
               play.c \
               print.c \
               free_board.c
