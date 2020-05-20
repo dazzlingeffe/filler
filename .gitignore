@@ -2,6 +2,7 @@
 cmake-build-debug/
 libft/
 .idea/
+resources/
 
 # Object files
 *.o
