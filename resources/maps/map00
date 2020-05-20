@@ -13,3 +13,10 @@
 .............x...
 .................
 .................
+
+//				if ((x + i) >= BHEIGHT || (x + i) < 0 || (y + j) >= BWIDTH
+//				|| (y + j) < 0 || ft_tolower(BOARD[x + i][y + j]) == board->enemy)
+//					return (-1);
+//				if (ft_tolower(BOARD[x + i][y + j]) == board->symbol)
+//					++counter;
+//				cells += HEAT[x + i][y + j];

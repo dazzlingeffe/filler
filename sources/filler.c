@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   filler.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmeowth <cmeowth@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/28 04:05:00 by cmeowth           #+#    #+#             */
+/*   Updated: 2020/07/28 02:03:06 by cmeowth          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fcntl.h>
 #include "filler.h"
 
@@ -15,14 +27,14 @@ void		init(t_board **board, t_piece **piece)
 	(*piece)->piece = NULL;
 	(*board)->height = 0;
 	(*board)->width = 0;
-	(*board)->H = 0;
-	(*board)->W = 0;
+	(*board)->h = 0;
+	(*board)->w = 0;
 	(*board)->lvl = 0;
 	(*board)->heat_map = NULL;
 	(*board)->board = NULL;
 }
 
-void 		set_player(t_board **board, char *line)
+void		set_player(t_board **board, char *line)
 {
 	if (!ft_strncmp(line, "$$$", 3))
 	{
@@ -35,8 +47,8 @@ int			main(void)
 {
 	t_board	*board;
 	t_piece	*piece;
-	char 	*line;
-	int 	i;
+	char	*line;
+	int		i;
 
 	if (!(board = (t_board *)ft_memalloc(sizeof(t_board))) ||
 	!(piece = (t_piece *)ft_memalloc(sizeof(t_piece))) ||
@@ -45,16 +57,15 @@ int			main(void)
 	if (get_next_line(0, &line) > 0)
 		set_player(&board, line);
 	ft_strdel(&line);
-	while(get_next_line(0, &line) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
-		if((i = parsing_data(&board, &piece, line)) == 2)
+		if ((i = parsing_data(&board, &piece, line)) == 2)
 			break ;
 		else if (i == 1)
 		{
 			play(board, piece);
 			print_coordinates(board);
-			free_board(&board);
-			free_piece(&piece);
+			free_board_piece(&board, &piece);
 		}
 		ft_strdel(&line);
 	}

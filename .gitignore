@@ -28,3 +28,5 @@ CMakeLists.txt
 gnl.c
 objects/
 libft/objects
+filler.trace
+norminette

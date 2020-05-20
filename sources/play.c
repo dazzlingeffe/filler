@@ -1,26 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   play.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cmeowth <cmeowth@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/28 04:05:00 by cmeowth           #+#    #+#             */
+/*   Updated: 2020/07/28 02:03:06 by cmeowth          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <filler.h>
 
-void 	play(t_board *board, t_piece *piece)
+void	play(t_board *board, t_piece *piece)
 {
 	int w;
 	int h;
 	int cells;
 	int min_cells;
 
-	h = -(piece->height);
+	h = -(PHEIGHT);
 	markup_heatmap(&board);
 	min_cells = 2147483647;
-	while (h < board->height + piece->height)
+	while (h < BHEIGHT + PHEIGHT)
 	{
-		w = -(piece->width);
-		while (w < board->width + piece->width)
+		w = -(PWIDTH);
+		while (w < BWIDTH + PWIDTH)
 		{
 			cells = count_cells(board, piece, h, w);
 			if (cells >= 0 && cells < min_cells)
 			{
 				min_cells = cells;
-				(*board).H = h;
-				(*board).W = w;
+				(*board).h = h;
+				(*board).w = w;
 			}
 			++w;
 		}
@@ -29,7 +41,7 @@ void 	play(t_board *board, t_piece *piece)
 	free_heatmap(&board);
 }
 
-int 	count_cells(t_board *board, t_piece *piece, int x, int y)
+int		count_cells(t_board *board, t_piece *piece, int x, int y)
 {
 	int cells;
 	int counter;
@@ -39,54 +51,55 @@ int 	count_cells(t_board *board, t_piece *piece, int x, int y)
 	cells = 0;
 	counter = 0;
 	i = -1;
-	while (++i < piece->height)
+	while (++i < PHEIGHT)
 	{
 		j = -1;
-		while(++j < piece->width)
+		while (++j < PWIDTH)
 		{
-			if (piece->piece[i][j] == '*')
+			if (PIECE[i][j] == '*')
 			{
-				if ((x + i) >= board->height || (x + i) < 0
-				|| (y + j) >= board->width || (y + j) < 0
-				|| ft_tolower(board->board[x + i][y + j]) == board->enemy
-				|| ft_tolower(board->board[x + i][y + j]) == board->enemy - 32)
+				if ((x + i) >= BHEIGHT || (x + i) < 0 || (y + j) >= BWIDTH ||
+				(y + j) < 0 || ft_tolower(BOARD[x + i][y + j]) == board->enemy)
 					return (-1);
-				if (ft_tolower(board->board[x + i][y + j]) == board->symbol)
+				if (ft_tolower(BOARD[x + i][y + j]) == board->symbol)
 					++counter;
-				cells += board->heat_map[x + i][y + j];
+				cells += HEAT[x + i][y + j];
 			}
 		}
 	}
-	return counter == 1 ? cells : -1;
+	return (counter == 1 ? cells : -1);
 }
 
-void 	markup_heatmap(t_board **board)
+void	markup_heatmap(t_board **board)
 {
 	int i;
 	int j;
 	int min_dist;
+	int h;
+	int w;
 
 	min_dist = 2147483647;
-	if (!((*board)->heat_map = (int**)ft_memalloc(sizeof(int*) * (*board)->height)))
+	h = (int)(sizeof(int*) * (*board)->height);
+	w = (int)(sizeof(int*) * (*board)->width);
+	if (!((*board)->heat_map = (int**)ft_memalloc(h)))
 		print_error(1);
 	i = -1;
 	while (++i < (*board)->height)
 	{
-		if(!((*board)->heat_map[i] = (int*)malloc(sizeof(int) * (*board)->width)))
+		if (!((*board)->heat_map[i] = (int*)malloc(w)))
 			print_error(1);
 		ft_arrayset((*board)->heat_map[i], min_dist, (*board)->width);
 		j = -1;
 		while (++j < (*board)->width)
-		{
-			if ((*board)->board[i][j] == '.' || ft_tolower((*board)->board[i][j]) == (*board)->symbol)
+			if ((*board)->board[i][j] == '.'
+			|| ft_tolower((*board)->board[i][j]) == (*board)->symbol)
 				measure_distance(&board, i, j);
 			else if (ft_tolower((*board)->board[i][j]) == (*board)->enemy)
 				(*board)->heat_map[i][j] = 0;
-		}
 	}
 }
 
-void 	measure_distance(t_board ***board, int i, int j)
+void	measure_distance(t_board ***board, int i, int j)
 {
 	int x;
 	int y;
